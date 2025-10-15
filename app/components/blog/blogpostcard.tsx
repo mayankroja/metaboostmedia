@@ -1,5 +1,8 @@
+// components/blog/BlogPostCard.tsx
+"use client";
 import { BlogPost } from "@/app/blog/type/blog";
 import Link from "next/link";
+import AnimateIn from "../common/animate-in";
 
 interface BlogPostCardProps {
   post: BlogPost;
@@ -24,52 +27,62 @@ const BlogPostCard = ({ post }: BlogPostCardProps) => {
           </svg>
         </div>
         <div className="absolute top-4 left-4">
-          <span className="bg-[#00d4ff] text-white text-xs font-semibold px-3 py-1 rounded-full">
-            {post.category}
-          </span>
+          <AnimateIn yOffset={10} duration={0.4} delay={0.2}>
+            <span className="bg-[#00d4ff] text-white text-xs font-semibold px-3 py-1 rounded-full">
+              {post.category}
+            </span>
+          </AnimateIn>
         </div>
       </div>
 
       {/* Content */}
       <div className="p-6 flex flex-col flex-grow">
-        <div className="flex items-center text-sm text-gray-500 mb-3">
-          <span>{post.date}</span>
-          <span className="mx-2">•</span>
-          <span>{post.readTime} min read</span>
-        </div>
+        <AnimateIn yOffset={20} duration={0.5} delay={0.1}>
+          <div className="flex items-center text-sm text-gray-500 mb-3">
+            <span>{post.date}</span>
+            <span className="mx-2">•</span>
+            <span>{post.readTime} min read</span>
+          </div>
+        </AnimateIn>
 
-        <h2 className="text-xl font-bold text-gray-900 mb-3 hover:text-[#00d4ff] transition-colors duration-300 line-clamp-2">
-          <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-        </h2>
+        <AnimateIn yOffset={20} duration={0.5} delay={0.15}>
+          <h2 className="text-xl font-bold text-gray-900 mb-3 hover:text-[#00d4ff] transition-colors duration-300 line-clamp-2">
+            <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+          </h2>
+        </AnimateIn>
 
-        <p className="text-gray-600 mb-4 flex-grow line-clamp-3">
-          {post.excerpt}
-        </p>
+        <AnimateIn yOffset={20} duration={0.5} delay={0.2}>
+          <p className="text-gray-600 mb-4 flex-grow line-clamp-3">
+            {post.excerpt}
+          </p>
+        </AnimateIn>
 
-        <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
-          <span className="text-sm text-gray-700 font-medium">
-            {post.author}
-          </span>
-          <Link
-            href={`/blog/${post.slug}`}
-            className="text-[#00d4ff] font-semibold hover:underline flex items-center whitespace-nowrap text-sm"
-          >
-            Read More
-            <svg
-              className="w-4 h-4 ml-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+        <AnimateIn yOffset={20} duration={0.5} delay={0.25}>
+          <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
+            <span className="text-sm text-gray-700 font-medium">
+              {post.author}
+            </span>
+            <Link
+              href={`/blog/${post.slug}`}
+              className="text-[#00d4ff] font-semibold hover:underline flex items-center whitespace-nowrap text-sm"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </Link>
-        </div>
+              Read More
+              <svg
+                className="w-4 h-4 ml-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </Link>
+          </div>
+        </AnimateIn>
       </div>
     </article>
   );

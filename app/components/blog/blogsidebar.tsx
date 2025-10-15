@@ -1,7 +1,8 @@
 // components/blog/BlogSidebar.tsx
-
+"use client";
 import { BlogPost } from "@/app/blog/type/blog";
 import NewsletterSignup from "./newslettersignup";
+import AnimateIn from "../common/animate-in";
 
 interface BlogSidebarProps {
   categories: string[];
@@ -18,13 +19,10 @@ const BlogSidebar = ({
   onSearch,
   onCategorySelect,
 }: BlogSidebarProps) => {
-  return (
-    <aside className="space-y-8">
-      {/* Search */}
-      <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h3 className="text-lg font-semibold text-[#0a2540] mb-4">
-          Search Articles
-        </h3>
+  const sidebarSections = [
+    {
+      title: "Search Articles",
+      content: (
         <div className="relative">
           <input
             type="text"
@@ -48,13 +46,11 @@ const BlogSidebar = ({
             </svg>
           </div>
         </div>
-      </div>
-
-      {/* Categories */}
-      <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h3 className="text-lg font-semibold text-[#0a2540] mb-4">
-          Categories
-        </h3>
+      )
+    },
+    {
+      title: "Categories",
+      content: (
         <ul className="space-y-2">
           <li>
             <button
@@ -68,7 +64,7 @@ const BlogSidebar = ({
               All Categories
             </button>
           </li>
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <li key={category}>
               <button
                 onClick={() => onCategorySelect(category)}
@@ -83,15 +79,13 @@ const BlogSidebar = ({
             </li>
           ))}
         </ul>
-      </div>
-
-      {/* Recent Posts */}
-      <div className="bg-white p-6 rounded-lg shadow-sm">
-        <h3 className="text-lg font-semibold text-[#0a2540] mb-4">
-          Recent Posts
-        </h3>
+      )
+    },
+    {
+      title: "Recent Posts",
+      content: (
         <ul className="space-y-4">
-          {recentPosts.map((post) => (
+          {recentPosts.map((post, index) => (
             <li
               key={post.id}
               className="border-b border-gray-100 pb-4 last:border-0 last:pb-0"
@@ -106,10 +100,31 @@ const BlogSidebar = ({
             </li>
           ))}
         </ul>
-      </div>
+      )
+    }
+  ];
 
+  return (
+    <aside className="space-y-8">
+      {sidebarSections.map((section, index) => (
+        <AnimateIn
+          key={index}
+          yOffset={30}
+          duration={0.6}
+          delay={0.1 * index}
+        >
+          <div className="bg-white p-6 rounded-lg shadow-sm">
+            <h3 className="text-lg font-semibold text-[#0a2540] mb-4">
+              {section.title}
+            </h3>
+            {section.content}
+          </div>
+        </AnimateIn>
+      ))}
 
-<NewsletterSignup />
+      <AnimateIn yOffset={30} duration={0.6} delay={0.3}>
+        <NewsletterSignup />
+      </AnimateIn>
     </aside>
   );
 };

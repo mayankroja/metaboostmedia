@@ -2,6 +2,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { BlogPost } from '../type/blog';
+import AnimateIn from '@/app/components/common/animate-in';
 
 
 const mockPosts: BlogPost[] = [
@@ -525,27 +526,35 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-[#0a2540] to-[#061a2b] py-16 text-white">
         <div className="container mx-auto px-4">
-          <Link href="/blog" className="text-[#00d4ff] hover:underline inline-flex items-center mb-6">
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to Blog
-          </Link>
+          <AnimateIn yOffset={30} duration={0.7}>
+            <Link href="/blog" className="text-[#00d4ff] hover:underline inline-flex items-center mb-6">
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to Blog
+            </Link>
+          </AnimateIn>
           
           <div className="max-w-3xl">
-            <span className="bg-[#00d4ff] text-white text-sm font-semibold px-3 py-1 rounded-full mb-4 inline-block">
-              {post.category}
-            </span>
+            <AnimateIn yOffset={40} duration={0.7} delay={0.1}>
+              <span className="bg-[#00d4ff] text-white text-sm font-semibold px-3 py-1 rounded-full mb-4 inline-block">
+                {post.category}
+              </span>
+            </AnimateIn>
             
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">{post.title}</h1>
+            <AnimateIn yOffset={40} duration={0.7} delay={0.2}>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">{post.title}</h1>
+            </AnimateIn>
             
-            <div className="flex items-center text-sm">
-              <span>{post.date}</span>
-              <span className="mx-2">•</span>
-              <span>{post.readTime} min read</span>
-              <span className="mx-2">•</span>
-              <span>By {post.author}</span>
-            </div>
+            <AnimateIn yOffset={30} duration={0.7} delay={0.3}>
+              <div className="flex flex-col sm:flex-row sm:items-center text-sm gap-2 sm:gap-0">
+                <span>{post.date}</span>
+                <span className="hidden sm:inline mx-2">•</span>
+                <span>{post.readTime} min read</span>
+                <span className="hidden sm:inline mx-2">•</span>
+                <span>By {post.author}</span>
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </div>
@@ -554,30 +563,36 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-3xl mx-auto">
           {/* Featured Image */}
-          <div className="bg-gradient-to-r from-[#0a2540] to-[#00d4ff] h-64 rounded-lg mb-8 flex items-center justify-center">
-            <svg className="w-24 h-24 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm12 2a2 2 0 00-2-2h-2a2 2 0 00-2 2v11a3 3 0 106 0V4zM6 17a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-            </svg>
-          </div>
+          <AnimateIn yOffset={50} duration={0.8} delay={0.1}>
+            <div className="bg-gradient-to-r from-[#0a2540] to-[#00d4ff] h-48 sm:h-64 rounded-lg mb-8 flex items-center justify-center">
+              <svg className="w-16 h-16 sm:w-24 sm:h-24 text-white opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm12 2a2 2 0 00-2-2h-2a2 2 0 00-2 2v11a3 3 0 106 0V4zM6 17a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+              </svg>
+            </div>
+          </AnimateIn>
           
           {/* Article Content */}
-          <article className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
+          <AnimateIn yOffset={40} duration={0.8} delay={0.2}>
+            <article className="prose prose-sm sm:prose-base md:prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
+          </AnimateIn>
           
           {/* Share Buttons */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Share this article</h3>
-            <div className="flex space-x-4">
-              <button className="bg-[#0a2540] text-white px-4 py-2 rounded-lg hover:bg-[#061a2b] transition-colors">
-                Twitter
-              </button>
-              <button className="bg-[#0a2540] text-white px-4 py-2 rounded-lg hover:bg-[#061a2b] transition-colors">
-                LinkedIn
-              </button>
-              <button className="bg-[#0a2540] text-white px-4 py-2 rounded-lg hover:bg-[#061a2b] transition-colors">
-                Facebook
-              </button>
+          <AnimateIn yOffset={30} duration={0.7} delay={0.3}>
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Share this article</h3>
+              <div className="flex flex-wrap gap-4">
+                <button className="bg-[#0a2540] text-white px-4 py-2 rounded-lg hover:bg-[#061a2b] transition-colors text-sm sm:text-base">
+                  Twitter
+                </button>
+                <button className="bg-[#0a2540] text-white px-4 py-2 rounded-lg hover:bg-[#061a2b] transition-colors text-sm sm:text-base">
+                  LinkedIn
+                </button>
+                <button className="bg-[#0a2540] text-white px-4 py-2 rounded-lg hover:bg-[#061a2b] transition-colors text-sm sm:text-base">
+                  Facebook
+                </button>
+              </div>
             </div>
-          </div>
+          </AnimateIn>
         </div>
       </div>
     </div>

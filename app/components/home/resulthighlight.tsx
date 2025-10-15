@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'framer-motion';
+import AnimateIn from '../common/animate-in';
 
 interface CounterProps {
   end: number;
@@ -20,22 +21,22 @@ const Counter = ({ end, suffix = '', duration = 2000 }: CounterProps) => {
       let startTime: number | null = null;
       const startValue = 0;
       const endValue = end;
-      
+
       const animate = (currentTime: number) => {
         if (!startTime) startTime = currentTime;
         const progress = Math.min((currentTime - startTime) / duration, 1);
-        
+
         // Easing function for smooth animation
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
         const currentCount = Math.floor(easeOutQuart * (endValue - startValue) + startValue);
-        
+
         setCount(currentCount);
-        
+
         if (progress < 1) {
           requestAnimationFrame(animate);
         }
       };
-      
+
       requestAnimationFrame(animate);
     }
   }, [end, duration, isInView]);
@@ -78,31 +79,38 @@ const ResultsHighlight = () => {
   return (
     <section className="py-16 bg-gradient-to-r from-[#0a2540] to-[#061a2b] text-white">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat) => (
-            <div 
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
+          {stats.map((stat, index) => (
+            <AnimateIn
               key={stat.id}
-              className="text-center p-6"
+              yOffset={40}
+              duration={0.6}
+              delay={0.1 * index}
+              className="text-center p-6 md:p-8"
             >
-              {/* Animated Number */}
-              <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#00d4ff] mb-2">
-                <Counter end={stat.value} suffix={stat.suffix} />
+              <div className="backdrop-blur-sm rounded-2xl transition-all duration-500 hover:transform hover:scale-105">
+                {/* Animated Number */}
+                <div className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-[#00d4ff] mb-3 md:mb-4">
+                  <Counter end={stat.value} suffix={stat.suffix} />
+                </div>
+
+                {/* Label */}
+                <p className="text-lg md:text-xl lg:text-2xl text-white font-medium">
+                  {stat.label}
+                </p>
               </div>
-              
-              {/* Label */}
-              <p className="text-lg md:text-xl text-white">
-                {stat.label}
-              </p>
-            </div>
+            </AnimateIn>
           ))}
         </div>
-        
+
         {/* Additional Context */}
-        <div className="text-center mt-12 max-w-3xl mx-auto">
-          <p className="text-xl text-gray-300">
-            Real results that drive business growth and deliver exceptional returns on investment.
-          </p>
-        </div>
+        <AnimateIn yOffset={30} duration={0.7} delay={0.4}>
+          <div className="text-center mt-12 max-w-3xl lg:max-w-4xl mx-auto">
+            <p className="text-medium md:text-xl text-gray-300 leading-relaxed">
+              Real results that drive business growth and deliver exceptional returns on investment for our clients worldwide.
+            </p>
+          </div>
+        </AnimateIn>
       </div>
     </section>
   );

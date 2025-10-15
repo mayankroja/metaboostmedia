@@ -1,5 +1,7 @@
 // components/ServicesSnapshot.tsx
+"use client";
 import Link from "next/link";
+import AnimateIn from "../common/animate-in";
 
 const ServicesSnapshot = () => {
   const services = [
@@ -41,64 +43,74 @@ const ServicesSnapshot = () => {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0a2540] mb-4">
-            Our Core Services
-          </h2>
-          <p className="text-lg text-[#666] max-w-2xl mx-auto">
-            Comprehensive digital marketing solutions tailored to your business goals.
-          </p>
-        </div>
-        
+        <AnimateIn yOffset={40} duration={0.7}>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0a2540] mb-4">
+              Our Core Services
+            </h2>
+            <p className="text-lg text-[#666] max-w-2xl mx-auto">
+              Comprehensive digital marketing solutions tailored to your business goals.
+            </p>
+          </div>
+        </AnimateIn>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((service) => (
-            <div 
+          {services.map((service, index) => (
+            <AnimateIn
               key={service.id}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col items-center text-center"
+              yOffset={50}
+              duration={0.6}
+              delay={0.1 * index}
             >
-              {/* Icon */}
-              <div className="text-[#00d4ff] mb-4">
-                {service.icon}
-              </div>
-              
-              {/* Title */}
-              <h3 className="text-xl font-semibold text-[#0a2540] mb-3">
-                {service.title}
-              </h3>
-              
-              {/* Description */}
-              <p className="text-[#666] mb-6 flex-grow">
-                {service.description}
-              </p>
-              
-              {/* Link */}
-              <Link 
-                href={service.link}
-                className="text-[#00d4ff] font-medium flex items-center justify-center group"
+              <div
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col items-center text-center"
               >
-                Learn More
-                <svg 
-                  className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
+                {/* Icon */}
+                <div className="text-[#00d4ff] mb-4">
+                  {service.icon}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xl font-semibold text-[#0a2540] mb-3">
+                  {service.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-[#666] mb-6 flex-grow">
+                  {service.description}
+                </p>
+
+                {/* Link */}
+                <Link
+                  href={service.link}
+                  className="text-[#00d4ff] font-medium flex items-center justify-center group"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
-            </div>
+                  Learn More
+                  <svg
+                    className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
+              </div>
+            </AnimateIn>
           ))}
         </div>
-        
+
         {/* View All Services Button */}
-        <div className="text-center mt-12">
-          <Link
-            href="/services"
-            className="inline-block bg-[#00d4ff] text-white px-8 py-3 rounded-full font-medium hover:bg-[#00b8e0] transition-colors shadow-md"
-          >
-            View All Services
-          </Link>
-        </div>
+        <AnimateIn yOffset={30} duration={0.7} delay={0.4}>
+          <div className="text-center mt-12">
+            <Link
+              href="/services"
+              className="inline-block bg-[#00d4ff] text-white px-8 py-3 rounded-full font-medium hover:bg-[#00b8e0] transition-colors shadow-md"
+            >
+              View All Services
+            </Link>
+          </div>
+        </AnimateIn>
       </div>
     </section>
   );

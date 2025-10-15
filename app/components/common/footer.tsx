@@ -106,8 +106,8 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <div className="space-y-2 text-gray-300 text-sm md:text-base">
               <p>info@metaboostmedia.com</p>
-              <p>+1 (555) 123-4567</p>
-              <p>123 Digital Avenue, Tech City</p>
+              <p>+91 (965) 054-4306</p>
+              <p>E-BLOCK, DDA Market, Vikaspuri</p>
             </div>
           </div>
         </div>
@@ -115,7 +115,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm md:text-base text-center md:text-left mb-4 md:mb-0">
-            © 2024 MetaBoostMedia. All rights reserved.
+            © 2025 MetaBoostMedia. All rights reserved.
           </p>
           <div className="flex space-x-4">
             {/* Social Media Links */}

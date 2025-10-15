@@ -1,4 +1,8 @@
 // components/blog/Pagination.tsx
+"use client";
+
+import AnimateIn from "../common/animate-in";
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -29,49 +33,51 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
 
   return (
     <nav className="flex justify-center mt-12">
-      <ul className="flex items-center space-x-2">
-        {/* Previous button */}
-        <li>
-          <button
-            onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="px-4 py-2 rounded-lg border border-gray-300 text-[#666] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-          >
-            Previous
-          </button>
-        </li>
-        
-        {/* Page numbers */}
-        {visiblePages.map((page, index) => (
-          <li key={index}>
-            {page === '...' ? (
-              <span className="px-3 py-2 text-[#666]">...</span>
-            ) : (
-              <button
-                onClick={() => onPageChange(page as number)}
-                className={`px-4 py-2 rounded-lg border ${
-                  currentPage === page
-                    ? "border-[#00d4ff] bg-[#00d4ff] text-white"
-                    : "border-gray-300 text-[#666] hover:bg-gray-50"
-                } transition-colors`}
-              >
-                {page}
-              </button>
-            )}
+      <AnimateIn yOffset={20} duration={0.6}>
+        <ul className="flex items-center space-x-2">
+          {/* Previous button */}
+          <li>
+            <button
+              onClick={() => onPageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-4 py-2 rounded-lg border border-gray-300 text-[#666] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+            >
+              Previous
+            </button>
           </li>
-        ))}
-        
-        {/* Next button */}
-        <li>
-          <button
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2 rounded-lg border border-gray-300 text-[#666] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
-          >
-            Next
-          </button>
-        </li>
-      </ul>
+          
+          {/* Page numbers */}
+          {visiblePages.map((page, index) => (
+            <li key={index}>
+              {page === '...' ? (
+                <span className="px-3 py-2 text-[#666]">...</span>
+              ) : (
+                <button
+                  onClick={() => onPageChange(page as number)}
+                  className={`px-4 py-2 rounded-lg border ${
+                    currentPage === page
+                      ? "border-[#00d4ff] bg-[#00d4ff] text-white"
+                      : "border-gray-300 text-[#666] hover:bg-gray-50"
+                  } transition-colors`}
+                >
+                  {page}
+                </button>
+              )}
+            </li>
+          ))}
+          
+          {/* Next button */}
+          <li>
+            <button
+              onClick={() => onPageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 rounded-lg border border-gray-300 text-[#666] disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      </AnimateIn>
     </nav>
   );
 };

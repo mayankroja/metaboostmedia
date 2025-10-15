@@ -1,4 +1,6 @@
 // components/Values.tsx
+"use client";
+import AnimateIn from "../common/animate-in";
 
 const Values = () => {
   const values = [
@@ -67,28 +69,43 @@ const Values = () => {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-[#0a2540] mb-12">
-          Our Values
-        </h2>
+        <AnimateIn yOffset={50} duration={0.8}>
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-[#0a2540] mb-12">
+            Our Values
+          </h2>
+        </AnimateIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {values.map((value) => (
-            <div key={value.id} className="text-center p-6 bg-[#f8f9fa] rounded-lg hover:shadow-md transition-shadow">
-              {/* Icon */}
-              <div className="text-[#00d4ff] mb-4 flex justify-center">
-                {value.icon}
+          {values.map((value, index) => (
+            <AnimateIn
+              key={value.id}
+              yOffset={40}
+              duration={0.6}
+              delay={0.1 * index}
+            >
+              <div className="text-center p-6 bg-[#f8f9fa] rounded-lg hover:shadow-md transition-shadow">
+                {/* Icon */}
+                <AnimateIn yOffset={20} duration={0.5} delay={0.1 * index + 0.1}>
+                  <div className="text-[#00d4ff] mb-4 flex justify-center">
+                    {value.icon}
+                  </div>
+                </AnimateIn>
+                
+                {/* Title */}
+                <AnimateIn yOffset={20} duration={0.5} delay={0.1 * index + 0.15}>
+                  <h3 className="text-xl font-semibold text-[#0a2540] mb-3">
+                    {value.title}
+                  </h3>
+                </AnimateIn>
+                
+                {/* Description */}
+                <AnimateIn yOffset={20} duration={0.5} delay={0.1 * index + 0.2}>
+                  <p className="text-[#666]">
+                    {value.description}
+                  </p>
+                </AnimateIn>
               </div>
-              
-              {/* Title */}
-              <h3 className="text-xl font-semibold text-[#0a2540] mb-3">
-                {value.title}
-              </h3>
-              
-              {/* Description */}
-              <p className="text-[#666]">
-                {value.description}
-              </p>
-            </div>
+            </AnimateIn>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 // components/ServiceTabs.tsx
 "use client";
 import { useState } from 'react';
+import AnimateIn from '../components/common/animate-in';
 
 interface Service {
   id: string;
@@ -12,8 +13,28 @@ interface Service {
 
 const ServiceTabs = () => {
   const [activeService, setActiveService] = useState(0);
-  
+
   const services: Service[] = [
+    {
+      id: "ads",
+      title: "Paid Advertising (PPC)",
+      description: "Drive immediate results with targeted advertising campaigns across multiple platforms.",
+      included: [
+        "Campaign strategy development",
+        "Audience targeting & segmentation",
+        "Ad creation & optimization",
+        "Landing page development",
+        "A/B testing implementation",
+        "ROI tracking & reporting"
+      ],
+      process: [
+        "Goal setting and budget planning",
+        "Audience research and targeting strategy",
+        "Ad creation and campaign setup",
+        "Continuous optimization based on performance data",
+        "Detailed ROI reporting and analysis"
+      ]
+    },
     {
       id: "seo",
       title: "SEO & Content Marketing",
@@ -51,26 +72,6 @@ const ServiceTabs = () => {
         "Content creation and scheduling",
         "Active engagement and community building",
         "Performance analysis and optimization"
-      ]
-    },
-    {
-      id: "ads",
-      title: "Paid Advertising (PPC)",
-      description: "Drive immediate results with targeted advertising campaigns across multiple platforms.",
-      included: [
-        "Campaign strategy development",
-        "Audience targeting & segmentation",
-        "Ad creation & optimization",
-        "Landing page development",
-        "A/B testing implementation",
-        "ROI tracking & reporting"
-      ],
-      process: [
-        "Goal setting and budget planning",
-        "Audience research and targeting strategy",
-        "Ad creation and campaign setup",
-        "Continuous optimization based on performance data",
-        "Detailed ROI reporting and analysis"
       ]
     },
     {
@@ -118,69 +119,83 @@ const ServiceTabs = () => {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-[#0a2540] mb-12">
-          Our Services
-        </h2>
-        
+        <AnimateIn yOffset={40} duration={0.7}>
+          <h2 className="text-3xl font-bold text-center text-[#0a2540] mb-12">
+            Our Services
+          </h2>
+        </AnimateIn>
+
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Tab List - Vertical on desktop, hidden on mobile */}
           <div className="lg:w-1/3">
             <div className="hidden lg:flex flex-col space-y-2">
               {services.map((service, index) => (
-                <button
+                <AnimateIn
                   key={service.id}
-                  onClick={() => setActiveService(index)}
-                  className={`text-left p-4 rounded-lg transition-colors ${
-                    index === activeService
+                  yOffset={20}
+                  duration={0.5}
+                  delay={0.1 * index}
+                >
+                  <button
+                    onClick={() => setActiveService(index)}
+                    className={`text-left p-4 rounded-lg transition-colors ${index === activeService
                       ? 'bg-[#f0fdff] border-l-4 border-[#00d4ff] text-[#0a2540] font-semibold'
                       : 'bg-gray-50 text-[#666] hover:bg-gray-100'
-                  }`}
-                >
-                  {service.title}
-                </button>
+                      }`}
+                  >
+                    {service.title}
+                  </button>
+                </AnimateIn>
               ))}
             </div>
-            
+
             {/* Accordion - Visible on mobile, hidden on desktop */}
             <div className="lg:hidden space-y-4">
               {services.map((service, index) => (
-                <div key={service.id} className="border border-gray-200 rounded-lg overflow-hidden">
-                  <button
-                    onClick={() => setActiveService(index === activeService ? -1 : index)}
-                    className={`w-full text-left p-4 flex justify-between items-center ${
-                      index === activeService
+                <AnimateIn
+                  key={service.id}
+                  yOffset={20}
+                  duration={0.5}
+                  delay={0.1 * index}
+                >
+                  <div className="border border-gray-200 rounded-lg overflow-hidden">
+                    <button
+                      onClick={() => setActiveService(index === activeService ? -1 : index)}
+                      className={`w-full text-left p-4 flex justify-between items-center ${index === activeService
                         ? 'bg-[#f0fdff] text-[#0a2540] font-semibold'
                         : 'bg-white text-[#666]'
-                    }`}
-                  >
-                    {service.title}
-                    <svg
-                      className={`w-5 h-5 transition-transform ${
-                        index === activeService ? 'rotate-180' : ''
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+                        }`}
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  
-                  {index === activeService && (
-                    <div className="p-4 bg-white border-t border-gray-200">
-                      <ServiceContent service={service} />
-                    </div>
-                  )}
-                </div>
+                      {service.title}
+                      <svg
+                        className={`w-5 h-5 transition-transform ${index === activeService ? 'rotate-180' : ''
+                          }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+
+                    {index === activeService && (
+                      <div className="p-4 bg-white border-t border-gray-200">
+                        <ServiceContent service={service} />
+                      </div>
+                    )}
+                  </div>
+                </AnimateIn>
               ))}
             </div>
           </div>
-          
+
           {/* Content Panel - Visible on desktop, hidden on mobile */}
           <div className="lg:w-2/3 hidden lg:block">
-            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-              <ServiceContent service={services[activeService]} />
-            </div>
+            <AnimateIn yOffset={30} duration={0.7} delay={0.2}>
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <ServiceContent service={services[activeService]} />
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </div>
@@ -191,61 +206,85 @@ const ServiceTabs = () => {
 const ServiceContent = ({ service }: { service: Service }) => {
   return (
     <>
-      <h3 className="text-2xl font-bold text-[#0a2540] mb-4">
-        {service.title}
-      </h3>
-      
-      <p className="text-[#666] mb-6">
-        {service.description}
-      </p>
-      
+      <AnimateIn yOffset={20} duration={0.6}>
+        <h3 className="text-2xl font-bold text-[#0a2540] mb-4">
+          {service.title}
+        </h3>
+      </AnimateIn>
+
+      <AnimateIn yOffset={20} duration={0.6} delay={0.1}>
+        <p className="text-[#666] mb-6">
+          {service.description}
+        </p>
+      </AnimateIn>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <h4 className="text-lg font-semibold text-[#0a2540] mb-4 flex items-center">
-            <svg className="w-5 h-5 text-[#00d4ff] mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            What&apos;s Included
-          </h4>
-          
-          <ul className="space-y-2">
-            {service.included.map((item, index) => (
-              <li key={index} className="text-[#666] flex items-start">
-                <svg className="w-4 h-4 text-[#00d4ff] mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        
-        <div>
-          <h4 className="text-lg font-semibold text-[#0a2540] mb-4 flex items-center">
-            <svg className="w-5 h-5 text-[#00d4ff] mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-            </svg>
-            Our Process
-          </h4>
-          
-          <ol className="space-y-3">
-            {service.process.map((step, index) => (
-              <li key={index} className="text-[#666] flex">
-                <span className="bg-[#00d4ff] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0">
-                  {index + 1}
-                </span>
-                {step}
-              </li>
-            ))}
-          </ol>
-        </div>
+        <AnimateIn yOffset={30} duration={0.6} delay={0.2}>
+          <div>
+            <h4 className="text-lg font-semibold text-[#0a2540] mb-4 flex items-center">
+              <svg className="w-5 h-5 text-[#00d4ff] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              What&apos;s Included
+            </h4>
+
+            <ul className="space-y-2">
+              {service.included.map((item, index) => (
+                <AnimateIn
+                  key={index}
+                  yOffset={10}
+                  duration={0.4}
+                  delay={0.3 + index * 0.05}
+                >
+                  <li className="text-[#666] flex items-start">
+                    <svg className="w-4 h-4 text-[#00d4ff] mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    {item}
+                  </li>
+                </AnimateIn>
+              ))}
+            </ul>
+          </div>
+        </AnimateIn>
+
+        <AnimateIn yOffset={30} duration={0.6} delay={0.3}>
+          <div>
+            <h4 className="text-lg font-semibold text-[#0a2540] mb-4 flex items-center">
+              <svg className="w-5 h-5 text-[#00d4ff] mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+              </svg>
+              Our Process
+            </h4>
+
+            <ol className="space-y-3">
+              {service.process.map((step, index) => (
+                <AnimateIn
+                  key={index}
+                  yOffset={10}
+                  duration={0.4}
+                  delay={0.4 + index * 0.05}
+                >
+                  <li className="text-[#666] flex">
+                    <span className="bg-[#00d4ff] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 flex-shrink-0">
+                      {index + 1}
+                    </span>
+                    {step}
+                  </li>
+                </AnimateIn>
+              ))}
+            </ol>
+          </div>
+        </AnimateIn>
       </div>
-      
-      <div className="mt-8 pt-6 border-t border-gray-200">
-        <button className="bg-[#00d4ff] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#00b8e0] transition-colors">
-          Get a Quote for {service.title}
-        </button>
-      </div>
+
+      <AnimateIn yOffset={20} duration={0.6} delay={0.5}>
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <button className="bg-[#00d4ff] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#00b8e0] transition-colors">
+            Get a Quote for {service.title}
+          </button>
+        </div>
+      </AnimateIn>
     </>
   );
 };
