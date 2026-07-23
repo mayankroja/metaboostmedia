@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1 md:col-span-2">
             <div className="flex flex-row items-center mb-4">
-              <Image src="/logo.png" alt="Logo" width={50} height={50} />
+              <Image src="/logo.png" alt="Logo" width={65} height={65} className="pt-2"/>
               <h3 className="text-lg md:text-xl font-bold">
                 METABOOSTMEDIA
               </h3>
@@ -105,7 +105,7 @@ const Footer = () => {
           <div className="md:col-span-2 lg:col-span-1">
             <h4 className="text-lg font-semibold mb-4">Contact</h4>
             <div className="space-y-2 text-gray-300 text-sm md:text-base">
-              <p>info@metaboostmedia.com</p>
+              <p>jayroja@metaboostmedia.com</p>
               <p>+91 (965) 054-4306</p>
               <p>E-BLOCK, DDA Market, Vikaspuri</p>
             </div>

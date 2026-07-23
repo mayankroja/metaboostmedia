@@ -11,7 +11,7 @@ const ContactInfo = () => {
         </svg>
       ),
       title: "Email",
-      mainInfo: "info@metaboostmedia.com",
+      mainInfo: "jayroja@metaboostmedia.com",
       secondaryInfo: "We'll respond within 24 hours"
     },
     {
