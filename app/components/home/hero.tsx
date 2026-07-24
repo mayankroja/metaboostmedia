@@ -15,7 +15,7 @@ const HeroSection = () => {
         className="absolute inset-0 w-full h-full object-cover z-0"
         poster="/hero-poster.jpg" // optional: fallback image while video loads
       >
-        <source src="/hero1.mp4" type="video/mp4" />
+        <source src="/hero.mp4" type="video/mp4" />
         {/* Add additional formats if needed */}
       </video>
 
